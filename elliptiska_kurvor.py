@@ -2,7 +2,7 @@ from math import sqrt, ceil
 from typing import Optional
 
 class Punkt:
-    def __init__(self, x: int, y: int, kurva: EliptiskKurva, är_oändlig=False):
+    def __init__(self, x: int, y: int, kurva: ElliptiskKurva, är_oändlig=False):
         self.x = x
         self.y = y
         self.är_oändlig = är_oändlig
@@ -65,12 +65,15 @@ class Punkt:
     def division(self, a: int, b: int):
         return (a * self.modulär_invers(b)) % self.kurva.p
 
-    def __mul__(self, other):
+    def __mul__(self, other: int):
         # TODO: Implementera negativ multiplikation
         # Double-and-add-algoritmen
 
         if type(other) != int:
             raise TypeError("Kan endast multiplicera en punkt med ett heltal")
+
+        if not other > 0:
+            raise NotImplementedError("Negativ multiplikation har ej implementerats. Implementera gärna själv, och skapa en pull request.")
 
         mask = other
         tvåpotens = self
@@ -89,7 +92,7 @@ class Punkt:
         return f"Punkt({str(self.x)}, {str(self.y)})"
 
 
-class EliptiskKurva:
+class ElliptiskKurva:
     def __init__(self, a: int, b: int, p: int):
         self.a = a
         self.b = b
@@ -152,5 +155,5 @@ class EliptiskKurva:
         self.punkter.append(self.oändligheten)
 
     def __repr__(self):
-        return f"Eliptisk kurva `E` i y^2 = x^3 + {str(self.a) if self.a != 1 else ""}x" + \
+        return f"Elliptisk kurva `E` i y^2 = x^3 + {str(self.a) if self.a != 1 else ""}x" + \
                f"{" + " + str(self.b) if self.b != 0 else ""} med {str(len(self.punkter))} punkter, projekterad över F{str(self.p)}"
