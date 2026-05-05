@@ -11,7 +11,7 @@ git clone https://github.com/borstelldotdev/ElliptiskaKurvor.git
 ```
 
 ... och importera i en python-fil/använd i konsolen:
-```
+```python
 from elliptiska_kurvor import Punkt, ElliptiskKurva
 ```
 
